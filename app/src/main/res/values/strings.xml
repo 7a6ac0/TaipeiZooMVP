@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">TaipeiZooMVP</string>
+    <string name="taipei_zoo">台北市動物園</string>
+    <string name="taipei_zoo_no_close_info">無休館資訊</string>
+    <string name="taipei_zoo_open_web_url">在網頁開啟</string>
+    <string name="taipei_zoo_plant_data">植物資料</string>
+    <string name="plant_info_alias">別名</string>
+    <string name="plant_info_brief">簡介</string>
+    <string name="plant_info_feature">辨認方式</string>
+    <string name="plant_info_application">功能性</string>
+
+    <string name="message_load_house_success">成功獲取館區資料</string>
+    <string name="message_load_house_error">無法獲取館區資料</string>
+    <string name="message_load_plant_success">成功獲取植物資料</string>
+    <string name="message_load_plant_error">無法獲取植物資料</string>
+</resources>

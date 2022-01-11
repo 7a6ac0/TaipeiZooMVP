@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/house_info"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="16dp"
+        android:textSize="14sp"
+        android:text="本館包含世界動物區、臺灣兩棲爬蟲動物區與教育解說廊道3個展示區塊，分別展示介紹世界各地與臺灣土地上的兩棲、爬蟲動物，教育解說廊道則介紹兩棲、爬蟲動物的生態與面臨困境。館內還有兩棲爬蟲教室提供相關課程及定期的保姆講古教育解說活動，希望藉由各類動物、寫實模型、互動教材與文化藝品的多元展示，引導遊客進入兩棲爬蟲動物的奧秘世界。"
+        app:layout_constraintStart_toStartOf="@id/image"
+        app:layout_constraintTop_toBottomOf="@id/image"
+        app:layout_constraintEnd_toEndOf="@id/image"/>
+
+    <TextView
+        android:id="@+id/house_memo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="每月第三個週一休館"
+        android:paddingStart="24dp"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@id/house_info"
+        app:layout_constraintTop_toBottomOf="@id/house_info"/>
+
+    <TextView
+        android:id="@+id/house_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="室內區"
+        android:paddingStart="24dp"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@id/house_memo"
+        app:layout_constraintTop_toBottomOf="@id/house_memo"/>
+
+    <TextView
+        android:id="@+id/house_web_url"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/taipei_zoo_open_web_url"
+        android:paddingEnd="24dp"
+        android:textSize="14sp"
+        android:textColor="@color/blue_light"
+        app:layout_constraintBottom_toBottomOf="@id/house_category"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <View
+        android:id="@+id/line_view"
+        android:layout_width="0dp"
+        android:layout_height="12dp"
+        android:layout_marginTop="12dp"
+        android:background="?attr/colorOnPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/house_category"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingVertical="16dp"
+        android:paddingStart="24dp"
+        android:text="@string/taipei_zoo_plant_data"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/line_view"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
