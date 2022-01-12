@@ -2,7 +2,6 @@ package tabacowang.me.taipeizoomvp.ui.house_detail
 
 import tabacowang.me.taipeizoomvp.api.model.PlantData
 import tabacowang.me.taipeizoomvp.base.BasePresenter
-import tabacowang.me.taipeizoomvp.base.BaseView
 
 interface HouseDetailContract {
 

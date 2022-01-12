@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import tabacowang.me.taipeizoomvp.databinding.ActivityMainBinding
 import tabacowang.me.taipeizoomvp.ui.house.HouseFragment
-import tabacowang.me.taipeizoomvp.ui.house.HousePresenter
 import tabacowang.me.taipeizoomvp.util.replaceFragment
 import tabacowang.me.taipeizoomvp.util.replaceFragmentWithTag
 import tabacowang.me.taipeizoomvp.util.setupActionBar
