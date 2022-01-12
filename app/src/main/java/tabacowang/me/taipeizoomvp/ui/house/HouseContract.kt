@@ -6,7 +6,7 @@ import tabacowang.me.taipeizoomvp.base.BaseView
 
 interface HouseContract {
 
-    interface View: BaseView<Presenter> {
+    interface View {
         var isActive: Boolean
         fun setLoadingIndicator(active: Boolean)
         fun showHouseList(list: List<HouseData>)

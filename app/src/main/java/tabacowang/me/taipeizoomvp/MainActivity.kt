@@ -1,40 +1,55 @@
 package tabacowang.me.taipeizoomvp
 
+import android.R
 import android.os.Bundle
+import android.view.MenuItem
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import tabacowang.me.taipeizoomvp.databinding.ActivityMainBinding
 import tabacowang.me.taipeizoomvp.ui.house.HouseFragment
 import tabacowang.me.taipeizoomvp.ui.house.HousePresenter
 import tabacowang.me.taipeizoomvp.util.replaceFragment
+import tabacowang.me.taipeizoomvp.util.replaceFragmentWithTag
 import tabacowang.me.taipeizoomvp.util.setupActionBar
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var housePresenter: HousePresenter
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupActionBar(binding.toolbar.id) {
-            setHomeAsUpIndicator(R.drawable.ic_menu)
-            setDisplayHomeAsUpEnabled(true)
-        }
-
-        val houseFragment = supportFragmentManager.findFragmentById(binding.fragmentContainer.id)
+        supportFragmentManager.findFragmentById(binding.fragmentContainer.id)
             as HouseFragment?
-            ?: HouseFragment.newInstance().also {
-                replaceFragment(it, binding.fragmentContainer.id)
-            }
+            ?: replaceFragment(HouseFragment.newInstance())
 
-        housePresenter = HousePresenter(houseFragment)
     }
 
-    override fun onBackPressed() {
-        if (supportFragmentManager.backStackEntryCount > 0) {
-            supportFragmentManager.popBackStackImmediate()
-        } else {
-            super.onBackPressed()
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.home -> {
+                if (supportFragmentManager.backStackEntryCount > 0) {
+                    supportFragmentManager.popBackStackImmediate()
+                }
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    fun replaceFragment(fragment: Fragment) {
+        replaceFragment(fragment, binding.fragmentContainer.id)
+    }
+
+    fun replaceFragmentWithTag(fragment: Fragment, tag: String) {
+        replaceFragmentWithTag(fragment, binding.fragmentContainer.id, tag)
+    }
+
+    fun setActionBar(action: ActionBar.() -> Unit) {
+        setupActionBar(binding.toolbar.id) {
+            action()
         }
     }
 }

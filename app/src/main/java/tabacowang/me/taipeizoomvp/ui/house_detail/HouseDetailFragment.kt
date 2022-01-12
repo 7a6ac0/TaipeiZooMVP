@@ -11,18 +11,16 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
+import tabacowang.me.taipeizoomvp.MainActivity
 import tabacowang.me.taipeizoomvp.R
 import tabacowang.me.taipeizoomvp.api.model.HouseData
 import tabacowang.me.taipeizoomvp.api.model.PlantData
 import tabacowang.me.taipeizoomvp.databinding.FragmentHouseDetailBinding
-import tabacowang.me.taipeizoomvp.ui.plant_detail.PlantDetailActivity
-import tabacowang.me.taipeizoomvp.ui.plant_detail.PlantDetailActivity.Companion.PLANT_DATA
-import tabacowang.me.taipeizoomvp.ui.plant_detail.PlantDetailActivity.Companion.PLANT_NAME
+import tabacowang.me.taipeizoomvp.ui.plant_detail.PlantDetailFragment
 import tabacowang.me.taipeizoomvp.util.showSnackBar
 
 class HouseDetailFragment : Fragment(), HouseDetailContract.View,
     HouseDetailAdapter.HouseDetailItemListener {
-    override lateinit var presenter: HouseDetailContract.Presenter
     override var isActive: Boolean = false
         get() = isAdded
 
@@ -43,6 +41,8 @@ class HouseDetailFragment : Fragment(), HouseDetailContract.View,
 
     private lateinit var binding: FragmentHouseDetailBinding
 
+    private lateinit var presenter: HouseDetailPresenter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -59,6 +59,13 @@ class HouseDetailFragment : Fragment(), HouseDetailContract.View,
     ): View {
         binding = FragmentHouseDetailBinding.inflate(inflater, container, false)
 
+        (requireActivity() as MainActivity).setActionBar {
+            setHomeAsUpIndicator(R.drawable.ic_arrow_back)
+            setDisplayHomeAsUpEnabled(true)
+
+            title = houseData.name
+        }
+
         with(binding) {
             plantsRecycleview.apply {
                 layoutManager = LinearLayoutManager(requireContext())
@@ -67,11 +74,13 @@ class HouseDetailFragment : Fragment(), HouseDetailContract.View,
             }
         }
 
+        setHasOptionsMenu(true)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        presenter = HouseDetailPresenter(this)
         presenter.loadPlantList(houseData.name ?: "")
     }
 
@@ -114,10 +123,6 @@ class HouseDetailFragment : Fragment(), HouseDetailContract.View,
 
     override fun onItemClicked(plantData: PlantData) {
         val dataString = Gson().toJson(plantData)
-        val intent = Intent(requireContext(), PlantDetailActivity::class.java).apply {
-            putExtra(PLANT_NAME, plantData.nameChBug)
-            putExtra(PLANT_DATA, dataString)
-        }
-        startActivity(intent)
+        (requireActivity() as MainActivity).replaceFragmentWithTag(PlantDetailFragment.newInstance(dataString), javaClass.name)
     }
 }

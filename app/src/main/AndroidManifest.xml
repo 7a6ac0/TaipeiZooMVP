@@ -23,9 +23,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.house_detail.HouseDetailActivity" />
-
-        <activity android:name=".ui.plant_detail.PlantDetailActivity" />
     </application>
 
 </manifest>

@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
+import tabacowang.me.taipeizoomvp.MainActivity
+import tabacowang.me.taipeizoomvp.R
 import tabacowang.me.taipeizoomvp.api.model.PlantData
 import tabacowang.me.taipeizoomvp.databinding.FragmentPlantDetailBinding
 
@@ -40,6 +42,14 @@ class PlantDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentPlantDetailBinding.inflate(inflater, container, false)
+
+        (requireActivity() as MainActivity).setActionBar {
+            setHomeAsUpIndicator(R.drawable.ic_arrow_back)
+            setDisplayHomeAsUpEnabled(true)
+
+            title = plantData.nameChBug
+        }
+
         with(binding) {
             Glide.with(image.context).load(plantData.picUrl).into(image)
             nameCh.text = plantData.nameChBug

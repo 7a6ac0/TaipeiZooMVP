@@ -8,9 +8,6 @@ import tabacowang.me.taipeizoomvp.api.repository.HouseRepository
 import tabacowang.me.taipeizoomvp.util.addDisposable
 
 class HousePresenter(private val view: HouseContract.View): HouseContract.Presenter {
-    init {
-        view.presenter = this
-    }
 
     private var compositeDisposable = CompositeDisposable()
     private val houseRepository: HouseRepository by inject(HouseRepository::class.java)

@@ -1,27 +1,22 @@
 package tabacowang.me.taipeizoomvp.ui.house
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
+import tabacowang.me.taipeizoomvp.MainActivity
 import tabacowang.me.taipeizoomvp.R
 import tabacowang.me.taipeizoomvp.api.model.HouseData
 import tabacowang.me.taipeizoomvp.databinding.FragmentHouseBinding
-import tabacowang.me.taipeizoomvp.ui.house_detail.HouseDetailActivity
+import tabacowang.me.taipeizoomvp.ui.house_detail.HouseDetailFragment
 import tabacowang.me.taipeizoomvp.util.showSnackBar
 
 class HouseFragment : Fragment(), HouseContract.View, HouseAdapter.HouseItemListener {
-    private val TAG = javaClass.name
-    override lateinit var presenter: HouseContract.Presenter
     override var isActive: Boolean = false
         get() = isAdded
 
@@ -33,12 +28,22 @@ class HouseFragment : Fragment(), HouseContract.View, HouseAdapter.HouseItemList
 
     private lateinit var binding: FragmentHouseBinding
 
+    private lateinit var presenter: HousePresenter
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHouseBinding.inflate(inflater, container, false)
+
+        (requireActivity() as MainActivity).setActionBar {
+            setHomeAsUpIndicator(R.drawable.ic_menu)
+            setDisplayHomeAsUpEnabled(true)
+
+            title = getString(R.string.taipei_zoo)
+        }
+
         with(binding) {
             houseRecycleview.apply {
                 layoutManager = LinearLayoutManager(requireContext())
@@ -53,6 +58,7 @@ class HouseFragment : Fragment(), HouseContract.View, HouseAdapter.HouseItemList
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        presenter = HousePresenter(this)
         presenter.start()
     }
 
@@ -91,11 +97,7 @@ class HouseFragment : Fragment(), HouseContract.View, HouseAdapter.HouseItemList
 
     override fun showHouseDetail(houseData: HouseData) {
         val dataString = Gson().toJson(houseData)
-        val intent = Intent(requireContext(), HouseDetailActivity::class.java).apply {
-            putExtra(HouseDetailActivity.HOUSE_NAME, houseData.name)
-            putExtra(HouseDetailActivity.HOUSE_DATA, dataString)
-        }
-        startActivity(intent)
+        (requireActivity() as MainActivity).replaceFragmentWithTag(HouseDetailFragment.newInstance(dataString), javaClass.name)
     }
 
     override fun onItemClicked(houseData: HouseData) {
